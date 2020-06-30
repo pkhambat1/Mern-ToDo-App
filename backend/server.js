@@ -18,12 +18,12 @@ mongoose.connect(
 )
 const connection = mongoose.connection
 
-connection.once("open", function() {
+connection.once("open", function () {
   console.log("MongoDB database connection established successfully")
 })
 
-todoRoutes.route("/").get(function(req, res) {
-  Todo.find(function(err, todos) {
+todoRoutes.route("/").get(function (req, res) {
+  Todo.find(function (err, todos) {
     if (err) {
       console.log(err)
     } else {
@@ -32,27 +32,30 @@ todoRoutes.route("/").get(function(req, res) {
   })
 })
 
-todoRoutes.route("/:id").get(function(req, res) {
+todoRoutes.route("/:id").get(function (req, res) {
   let id = req.params.id
-  Todo.findById(id, function(err, todo) {
+  Todo.findById(id, function (err, todo) {
     res.json(todo)
   })
 })
 
-todoRoutes.route("/add").post(function(req, res) {
+todoRoutes.route("/add").post(function (req, res) {
+  console.log("heree")
   let todo = new Todo(req.body)
+  console.log("req.body", req.body)
+  console.log("todo", todo)
   todo
     .save()
-    .then(todo => {
+    .then((todo) => {
       res.status(200).json({ todo: "todo added successfully" })
     })
-    .catch(err => {
+    .catch((err) => {
       res.status(400).send("adding new todo failed")
     })
 })
 
-todoRoutes.route("/update/:id").post(function(req, res) {
-  Todo.findById(req.params.id, function(err, todo) {
+todoRoutes.route("/update/:id").post(function (req, res) {
+  Todo.findById(req.params.id, function (err, todo) {
     if (!todo) {
       res.status(404).send("data is not found")
     } else {
@@ -63,39 +66,39 @@ todoRoutes.route("/update/:id").post(function(req, res) {
 
       todo
         .save()
-        .then(todo => {
+        .then((todo) => {
           res.json("Todo updated")
         })
-        .catch(err => {
+        .catch((err) => {
           res.status(400).send("Update not possible")
         })
     }
   })
 })
 
-todoRoutes.route("/delete/:id").get(function(req, res) {
-  Todo.findByIdAndDelete(req.params.id, function(err, todo) {
+todoRoutes.route("/delete/:id").get(function (req, res) {
+  Todo.findByIdAndDelete(req.params.id, function (err, todo) {
     if (!todo) res.status(404).send("data is not found")
     else res.json("Todo deleted")
   })
 })
 
-todoRoutes.route("/auth/login").get(function(req, res) {
-  User.findOn(req.body.id, function(err, todo) {
+todoRoutes.route("/auth/login").get(function (req, res) {
+  User.findOn(req.body.id, function (err, todo) {
     if (!todo) res.status(404).send("data is not found")
     else res.json("Todo deleted")
   })
 })
 
-todoRoutes.route("/auth/signup").get(function(req, res) {
-  User.findById(req.params.id, function(err, todo) {
+todoRoutes.route("/auth/signup").get(function (req, res) {
+  User.findById(req.params.id, function (err, todo) {
     if (!todo) res.status(404).send("data is not found")
     else res.json("Todo deleted")
   })
 })
 
-todoRoutes.route("/auth/logout").get(function(req, res) {
-  User.findByIdAndDelete(req.params.id, function(err, todo) {
+todoRoutes.route("/auth/logout").get(function (req, res) {
+  User.findByIdAndDelete(req.params.id, function (err, todo) {
     if (!todo) res.status(404).send("data is not found")
     else res.json("Todo deleted")
   })
@@ -103,6 +106,6 @@ todoRoutes.route("/auth/logout").get(function(req, res) {
 
 app.use("/todos", todoRoutes)
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
   console.log("Server is running on Port: " + PORT)
 })

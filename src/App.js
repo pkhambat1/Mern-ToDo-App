@@ -1,12 +1,12 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import React from "react"
+import { Link, Route, BrowserRouter as Router } from "react-router-dom"
 
-import CreateTodo from "./components/create-todo.component";
-import EditTodo from "./components/edit-todo-list.component";
-import TodosList from "./components/todos-list.component";
+import CreateTodo from "./components/create-todo.component"
+import EditTodo from "./components/edit-todo-list.component"
+import TodosList from "./components/todos-list.component"
+import logo from "./logo.jpg"
 
-import "bootstrap/dist/css/bootstrap.min.css";
-import logo from "./logo.jpg";
+import "bootstrap/dist/css/bootstrap.min.css"
 
 function App() {
   return (
@@ -14,18 +14,29 @@ function App() {
       <Router>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
           <Link to="/" className="navbar-brand">
-            <img src={logo} width="30" height="30" style={{ borderRadius: 100 }} alt="" />
+            <img
+              src={logo}
+              width="30"
+              height="30"
+              style={{ borderRadius: 100 }}
+              alt=""
+            />
           </Link>
-          <Link to="/" className="navbar-brand">MERN Notes App</Link>
+          <Link to="/" className="navbar-brand">
+            MERN Notes App
+          </Link>
           <div className="collapse navbar-collapse">
             <ul className="navbar-nav mr-auto">
               <li className="navbar-item">
-                <Link to="/" className="nav-link">All Notes</Link>
+                <Link to="/" className="nav-link">
+                  All Notes
+                </Link>
               </li>
               <li className="navbar-item">
-                <Link to="/create" className="nav-link">Create Note</Link>
+                <Link to="/create" className="nav-link">
+                  Create Note
+                </Link>
               </li>
-
             </ul>
           </div>
         </nav>
@@ -36,8 +47,7 @@ function App() {
         </div>
       </Router>
     </div>
-  );
+  )
 }
 
-export default App;
-
+export default App
