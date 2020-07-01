@@ -5,6 +5,7 @@ const cors = require("cors")
 const mongoose = require("mongoose")
 const todoRoutes = express.Router()
 const PORT = 4000
+const { username, password, cluster, dbName } = require("./config")
 
 let Todo = require("./todo.model")
 // let User = require('./user.model');
@@ -13,8 +14,8 @@ app.use(cors())
 app.use(bodyParser.json())
 
 mongoose.connect(
-  "mongodb+srv://m001-student:m001-mongodb-basics@cluster0-f6jps.mongodb.net/todos?retryWrites=true&w=majority",
-  { useNewUrlParser: true }
+  `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbName}?retryWrites=true&w=majority`,
+  { useNewUrlParser: true, useUnifiedTopology: true }
 )
 const connection = mongoose.connection
 
@@ -40,10 +41,8 @@ todoRoutes.route("/:id").get(function (req, res) {
 })
 
 todoRoutes.route("/add").post(function (req, res) {
-  console.log("heree")
   let todo = new Todo(req.body)
   console.log("req.body", req.body)
-  console.log("todo", todo)
   todo
     .save()
     .then((todo) => {
