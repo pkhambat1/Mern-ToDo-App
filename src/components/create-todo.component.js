@@ -17,7 +17,6 @@ class CreateTodo extends Component {
     this.setState({
       todo_description: e.target.value,
     })
-    console.log(this.state)
   }
 
   onChangeTodoResponsible = (e) => {
